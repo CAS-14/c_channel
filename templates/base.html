@@ -18,13 +18,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{% endblock %} | C-CHANNEL</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/c_channel.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ static('c_channel.css') }}">
     {% block head %}{% endblock %}
 </head>
 <body>
     <div class="wrapper">
         <div class="main">
-            <a class="nolink" href="{{ url_for('channel.home') }}"><img class="logo" src="{{ url_for('static', filename='image/cch_logo.png') }}"></a>
+            <a class="nolink" href="{{ url_for('channel.home') }}"><img class="logo" src="{{ static('img/badge.png') }}"></a>
             {% block content %}{% endblock %}
         </div>
     </div>

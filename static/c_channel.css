@@ -1,0 +1,247 @@
+:root {
+    --tile: url("/c_channel/img/tile_small.png");
+    --color1: #b9f4ff;
+    --color2: #1144ff;
+    --color3: #000f99;
+    --gradient1: linear-gradient(180deg, rgba(29, 180, 255, 1) 0%, rgba(94, 201, 255, 1) 22%, rgba(185, 244, 255, 1) 100%);
+    --gradient2: linear-gradient(90deg, rgba(239, 255, 255, 1) 0%, rgba(209, 244, 255, 1) 41%, rgba(69, 172, 255, 1) 66%, rgba(239, 255, 255, 1) 90%);
+}
+
+@font-face {
+    font-family: ShinGo;
+    src: url("/c_channel/font/ShinGoPro-Regular.otf");
+    font-style: normal;
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: ShinGo;
+    src: url("/c_channel/font/ShinGoPro-Bold.otf");
+    font-style: normal;
+    font-weight: bold;
+}
+
+html {
+    height: 100%;
+    line-height: 1.5;
+    font-family: ShinGo;
+    font-size: 14px;
+    color: var(--color2);
+}
+
+body {
+    height: 100%;
+    overflow-y: hidden;
+    margin: 0;
+    background: var(--tile) repeat, var(--gradient1);
+}
+
+a {
+    color: var(--color2);
+}
+
+a:visited {
+    color: purple;
+}
+
+.wrapper {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.main {
+    height: 95%;
+    width: 700px;
+    display: flex;
+    flex-direction: column;
+    border: 2px solid var(--color2);
+    border-radius: 6px;
+    box-shadow: 2px 2px gray;
+    background: var(--color1);
+    box-sizing: border-box;
+    padding: 10px;
+    align-items: center;
+    overflow-y: scroll;
+}
+
+.logo {
+    height: 100px;
+    width: 190px;
+}
+
+.nolink {
+    text-decoration: none;
+}
+
+.create-post {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-evenly;
+}
+
+.post {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    padding: 5px;
+    border: 1px solid var(--color2);
+    border-radius: 3px;
+    box-shadow: 1px 1px var(--color2);
+    background: var(--gradient1);
+    width: 660px;
+    min-height: 50px;
+    max-height: 200px;
+    margin-bottom: 10px;
+}
+
+.post img {
+    max-height: 100%;
+    max-width: 100%;
+    width: 150px;
+    margin-right: 5px;
+    object-fit: contain;
+    object-position: top;
+    background: beige;
+    border: 2px solid limegreen;
+    border-radius: 5px;
+}
+
+.post-box {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    overflow: hidden;
+}
+
+.post-details {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.post-id, .post-author, .post-subject {
+    size: 22px;
+}
+
+.post-badge {
+    background: var(--gradient2);
+    border-radius: 15px;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-right: 10px;
+    border: 1px solid var(--color2);
+}
+
+.post-id {
+    color: red;
+    font-weight: bold;
+}
+
+.post-author {
+    color: blue;
+}
+
+.post-subject {
+    color: var(--color3);
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+}
+
+.post-comment {
+    color: var(--color3);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+}
+
+.post-replies {
+    flex: 1;
+    text-align: right;
+}
+
+.image-details {
+    background: beige;
+    color: limegreen;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    white-space: nowrap;
+    margin-top: 4px;
+    box-shadow: 2px 2px limegreen;
+    padding-left: 3px;
+    padding-right: 3px;
+}
+
+.flash {
+    border: 2px solid;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 5px 0px;
+    width: fit-content;
+}
+
+.neg {
+    border-color: red;
+    background-color: pink;
+    color: red;
+}
+
+.pos {
+    border-color: green;
+    background-color: lightgreen;
+    color: green;
+}
+
+.inf {
+    border-color: dodgerblue;
+    background-color: paleturquoise;
+    color: dodgerblue;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+}
+
+.dashboard-item {
+    height: 150px;
+    width: 200px;
+    border: 2px solid var(--color2);
+    background: var(--gradient1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.dashboard-item span {
+    color: var(--color2);
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.dashboard-item img {
+    max-height: 80%;
+    width: 100%;
+    object-fit: contain;
+}
+
+.dashboard-disabled {
+    border: 2px solid gray;
+    background: darkgray;
+    pointer-events: none;
+}
+
+.dashboard-disabled span {
+    color: #444444;
+    font-weight: normal;
+}
+
+.dashboard-disabled img {
+    filter: grayscale(0.8);
+}
+
