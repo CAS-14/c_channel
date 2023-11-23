@@ -1,0 +1,18 @@
+{% extends "channel/base.html" %}
+{% from "channel/macros.html" import creator, mpost %}
+
+{% block title %}replies to #{{ thread_post.id }} on /{{ board_name }}/{% endblock %}
+
+{% block content %}
+    <h2>replies to #{{ thread_post.id }}</h2>
+    {{ creator(board_name, thread_post.id) }}
+    {{ get_flashes() }}
+    <hr>
+    {{ mpost(thread_post) }}
+    <hr>
+    <div>
+        {% for reply in thread_post.replies %}
+            {{ mpost(reply) }}
+        {% endfor %}
+    </div>
+{% endblock %}

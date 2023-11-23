@@ -1,0 +1,22 @@
+{% extends "channel/base.html" %}
+
+{% block title %}welcome{% endblock %}
+
+{% block content %}
+    <h2>You have entered C-Channel</h2>
+    <span>C-Channel is a novel image board created by weirdcease.</span>
+    <span>This site is in it's alpha stage, so don't expect much greatness yet.</span>
+    <h3>Select a Board</h3>
+    <table>
+        {% for board in boards %}
+            <tr>
+                <td><span>&sol;{{ board.name }}&sol;</span></td>
+                <td><span style="color:black;">:</span></td>
+                <td><a href="{{ url_for('channel.board', board_name=board.name) }}">{{ board.title.lower() }}</a></td>
+            </tr>
+        {% endfor %}
+    </table>
+    <br>
+    <span>By creating a post on C-Channel, you agree to our <a href="{{ url_for('channel.rules') }}" target="_blank">rules</a>.</span>
+    <a class="end" href="{{ url_for('channel.login') }}">vip/admin access</a>
+{% endblock %}

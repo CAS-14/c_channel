@@ -1,0 +1,61 @@
+{% macro creator(board_name, parent_id) %}
+    <form action="{{ url_for('channel.post_handler') }}" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="board" value="{{ board_name }}">
+        {% if parent_id %}
+            <input type="hidden" name="parent" value="{{ parent_id }}">
+        {% else %}
+            <input type="hidden" name="is-thread" value="1">
+        {% endif %}
+        <div class="create-post">
+            <input type="text" name="author" placeholder="anonymous" maxlength="16">
+            {% if not parent_id %}
+                <input type="text" name="subject" placeholder="subject" maxlength="16">
+            {% endif %}
+            <textarea name="comment" placeholder="comment" maxlength="1000"></textarea>
+            <span>
+                {% if parent_id %}
+                    <input type="file" name="file">
+                    {% set submit_name = "post reply" %}
+                {% else %}
+                    <input type="file" name="file" required>
+                    {% set submit_name = "create post" %}
+                {% endif %}
+                <input type="submit" name="{{ submit_name }}">
+            </span>
+        </div>
+    </form>
+{% endmacro %}
+
+{% macro mpost(post) %}
+    <div class="post">
+        {% if post.filename %}
+            <img src="{{ url_for('channel.get_file', filename=post.filename) }}">
+        {% endif %}
+        <div class="post-box">
+            <div class="post-details">
+                <div class="post-badge">
+                    <span class="post-id">No.{{ post.id }}</span>
+                    <span class="post-author">{{ post.author }}</span>
+                </div>
+                {% if post.subject %}
+                    <span class="post-subject">{{ post.subject }}</span>
+                {% endif %}
+                {% if post.is_thread %}
+                    <span class="post-replies">{{ post.replies|length }} replies [<a href="{{ url_for('channel.thread', board_name=post.board, thread_id=post.id) }}">view</a>]</span>
+                {% endif %}
+            </div>
+            {% if post.filename %}
+                <span class="image-details">
+                    &#128462;
+                    <a href="{{ url_for('channel.get_file', filename=post.filename) }}" target="_blank">{{ post.original_filename }}</a>
+                    {{ "|" }}
+                    {{ post.file_size }}
+                    {{ post.file_res }}
+                </span>
+            {% endif %}
+            {% if post.comment %}
+                <p class="post-comment">{{ post.comment }}</p>
+            {% endif %}
+        </div>
+    </div>
+{% endmacro %}

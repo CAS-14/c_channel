@@ -1,0 +1,18 @@
+{% extends "channel/base.html" %}
+
+{% block title %}LOCKED{% endblock %}
+
+{% block content %}
+    <p>C-Channel is locked! You must login.</p>
+    {{ get_flashes() }}
+    <form action="{{ url_for('channel.login_handler') }}" method="post">
+        <label for="username">Username:</label>
+        <input type="text" name="username">
+        <br>
+        <label for="password">Password:</label>
+        <input type="password" name="password">
+        <br>
+        <input type="submit">
+    </form>
+    <span>Session id: {{ session_id }}</span>
+{% endblock %}

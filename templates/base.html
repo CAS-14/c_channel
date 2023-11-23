@@ -1,0 +1,32 @@
+{% macro get_flashes() %}
+    <div id="flashes">
+        {% for category, message in get_flashed_messages(with_categories=true) %}
+            {% if (not category) or (category == "message") %}
+                {% set category = "neg" %}
+            {% endif %}
+            <div class="flash {{ category }}">
+                <span>{{ message }}</span>
+            </div>
+        {% endfor %}
+    </div>
+{% endmacro %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %} | C-CHANNEL</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/c_channel.css') }}">
+    {% block head %}{% endblock %}
+</head>
+<body>
+    <div class="wrapper">
+        <div class="main">
+            <a class="nolink" href="{{ url_for('channel.home') }}"><img class="logo" src="{{ url_for('static', filename='image/cch_logo.png') }}"></a>
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+</body>
+</html>

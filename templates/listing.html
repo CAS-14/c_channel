@@ -1,0 +1,94 @@
+{% extends "channel/base.html" %}
+
+{% block title %}admin listing{% endblock %}
+
+{% block content %}
+    <a href="{{ url_for('channel.dashboard') }}">back to dashboard</a>
+    {% if posts[0].deletion_reason %}
+        <span>viewing deleted posts</span>
+        <a href="{{ url_for('channel.listing') }}">back to regular</a>
+    {% else %}
+        <a href="{{ url_for('channel.listing_deleted') }}">view deleted</a>
+    {% endif %}
+    {% for post in posts %}
+        <div class="listing-item">
+            <div class="listing-info-row">
+                <span>No.{{ post.id }}</span>
+                <span>/{{ post.board }}/</span>
+                {% if post.thread %}
+                    <span>top level thread</span>
+                {% else %}
+                    {% if post.parent_id %}
+                        <span>reply to <a href="{{ url_for('channel.thread', board_name=post.board, thread_id=post.parent_id) }}">No.{{ post.parent_id }}</a></span>
+                    {% else %}
+                        <span>something went wrong, no parent id?</span>
+                    {% endif %}
+                {% endif %}
+            </div>
+            {% if post.filename %}
+                <div class="listing-info-row">
+                    <a href="{{ url_for('channel.get_file', filename=post.filename) }}" target="_blank">FILE</a>
+                    <span>originally {{ post.original_filename }}</span>
+                    <span>{{ post.file_size }}</span>
+                    <span>{{ post.file_res }}</span>
+                </div>
+            {% else %}
+                <span>no file</span>
+            {% endif %}
+            <div class="listing-info-row">
+                <span>{{ post.author }}</span>
+                <span>
+                    {% if post.subject %}
+                        {{ post.subject }}
+                    {% else %}
+                        {{ "no subject" }}
+                    {% endif %}
+                </span>
+            </div>
+            {% if post.comment %}
+                <div>
+                    <span>{{ post.comment }}</span>
+                </div>
+            {% else %}
+                <span>no comment</span>
+            {% endif %}
+            {% if post.mod_id %}
+                <div class="listing-info-row">
+                    <span>moderator!</span>
+                    <span>ID: {{ post.mod_id }}</span>
+                    <a href="">look up</a>
+                </div>
+            {% endif %}
+            <div class="listing-info-row">
+                {% if post.is_pinned %}
+                    <span>Pinned!</span>
+                {% else %}
+                    <span>not pinned</span>
+                {% endif %}
+                {% if post.is_locked %}
+                    <span>Locked!</span>
+                {% else %}
+                    <span>notlocked</span>
+                {% endif %}
+            </div>
+            <div class="listing-info-row">
+                <span>time: {{ post.time|time }}</span>
+                <span>
+                    {{ "last bump:" }}
+                    {% if post.last_bump %}
+                        {{ post.last_bump }}
+                    {% else %}
+                        {{ "N/A" }}
+                    {% endif %}
+                </span>
+            </div>
+            {% if post.deletion_reason %}
+                <div class="listing-info-row">
+                    <span>deleted</span>
+                    <span>{{ deletion_reason }}</span>
+                    <span>{{ deletion_time|time }}</span>
+                </div>
+            {% endif %}
+        </div>
+    {% endfor %}
+{% endblock %}

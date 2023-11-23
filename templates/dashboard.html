@@ -1,0 +1,35 @@
+{% extends "channel/base.html" %}
+
+{% block title %}user dashboard{% endblock %}
+
+{% macro dash_item(name, endpoint, image, level) %}
+    {% set item_class = "dashboard-item" %}
+    {% if user.level < level %}
+        {% set item_class = item_class + " dashboard-disabled" %}
+        {% set endpoint = "channel.dashboard" %}
+        {% set title = name + " requires level " + level|str + " or higher" %}
+    {% else %}
+        {% set title = "" %}
+    {% endif %}
+    <a class="{{ item_class }}" href="{{ url_for(endpoint) }}" title="{{ title }}">
+        <span>{{ name }}</span>
+        <img src="{{ url_for('static', filename='image/cc_dash/'+image) }}">
+    </a>
+{% endmacro %}
+
+{% block content %}
+    <span>Signed in as <b>{{ user.name }}</b> (Admin lvl.{{ user.level }})</span>
+    <a href="{{ url_for('channel.logout_handler') }}">Log out</a>
+    <div class="dashboard-row">
+        {{ dash_item("Listing", "channel.listing", "listing.png", 2) }}
+        {{ dash_item("Bans", "channel.bans", "bans.png", 2) }}
+    </div>
+    <div class="dashboard-row">
+        {{ dash_item("Watchlist", "channel.watchlist", "watch.png", 2) }}
+        {{ dash_item("Logs", "channel.logs", "logs.png", 5) }}
+    </div>
+    <div class="dashboard-row">
+        {{ dash_item("Manage Users", "channel.manage_accounts", "users.png", 6) }}
+        {{ dash_item("Manage Boards", "channel.manage_boards", "boards.png", 8) }}
+    </div>
+{% endblock %}

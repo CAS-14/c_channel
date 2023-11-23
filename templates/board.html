@@ -1,0 +1,17 @@
+{% extends "channel/base.html" %}
+{% from "channel/macros.html" import creator, mpost %}
+
+{% block title %}/{{ board.name }}/{% endblock %}
+
+{% block content %}
+    <h2>/{{ board.name }}/ : {{ board.title }}</h2>
+    <span>{{ board.description }}</span>
+    {{ creator(board.name, none) }}
+    {{ get_flashes() }}
+    <hr>
+    <div>
+        {% for thread in threads %}
+            {{ mpost(thread) }}
+        {% endfor %}
+    </div>
+{% endblock %}
