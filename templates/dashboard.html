@@ -1,4 +1,4 @@
-{% extends "channel/base.html" %}
+{% extends "base.html" %}
 
 {% block title %}user dashboard{% endblock %}
 
@@ -6,7 +6,7 @@
     {% set item_class = "dashboard-item" %}
     {% if user.level < level %}
         {% set item_class = item_class + " dashboard-disabled" %}
-        {% set endpoint = "channel.dashboard" %}
+        {% set endpoint = "cchan.dashboard" %}
         {% set title = name + " requires level " + level|str + " or higher" %}
     {% else %}
         {% set title = "" %}
@@ -19,17 +19,17 @@
 
 {% block content %}
     <span>Signed in as <b>{{ user.name }}</b> (Admin lvl.{{ user.level }})</span>
-    <a href="{{ url_for('channel.logout_handler') }}">Log out</a>
+    <a href="{{ url_for('cchan.logout_handler') }}">Log out</a>
     <div class="row">
-        {{ dash_item("Listing", "channel.listing", "listing.png", 2) }}
-        {{ dash_item("Bans", "channel.bans", "bans.png", 2) }}
+        {{ dash_item("Listing", "cchan.listing", "listing.png", 2) }}
+        {{ dash_item("Bans", "cchan.bans", "bans.png", 2) }}
     </div>
     <div class="row">
-        {{ dash_item("Watchlist", "channel.watchlist", "watch.png", 2) }}
-        {{ dash_item("Logs", "channel.logs", "logs.png", 5) }}
+        {{ dash_item("Watchlist", "cchan.watchlist", "watch.png", 2) }}
+        {{ dash_item("Logs", "cchan.logs", "logs.png", 5) }}
     </div>
     <div class="row">
-        {{ dash_item("Manage Users", "channel.manage_accounts", "users.png", 6) }}
-        {{ dash_item("Manage Boards", "channel.manage_boards", "boards.png", 8) }}
+        {{ dash_item("Manage Users", "cchan.manage_accounts", "users.png", 6) }}
+        {{ dash_item("Manage Boards", "cchan.manage_boards", "boards.png", 8) }}
     </div>
 {% endblock %}

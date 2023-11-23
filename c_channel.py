@@ -182,7 +182,7 @@ def get_thread(board_name: str, thread_id: int):
     top_post = Post(*top_post_data)
 
     if top_post.board != board_name: 
-        return redirect(url_for("channel.thread", board_name=top_post.board, thread_id=top_post.id))
+        return redirect(url_for("cchan.thread", board_name=top_post.board, thread_id=top_post.id))
 
     replies_data = g.cur.execute(
         "SELECT * FROM posts WHERE parent = ? AND deletion IS NULL ORDER BY time DESC;",
@@ -207,7 +207,7 @@ def allowed_file(filename):
 
 def ra(required_level: int = 0):
     if "user_id" not in session:
-        return "You must login to view this page.", "channel.login"
+        return "You must login to view this page.", "cchan.login"
 
     level = g.cur.execute(
         "SELECT level FROM users WHERE id = ?;",
@@ -216,12 +216,12 @@ def ra(required_level: int = 0):
 
     if not level:
         session.clear()
-        return "Account not found.", "channel.login"
+        return "Account not found.", "cchan.login"
 
     level = level[0]
 
     if level < required_level:
-        return "You do not have sufficient permissions to view this page.", "channel.dashboard"
+        return "You do not have sufficient permissions to view this page.", "cchan.dashboard"
 
 
 def ae(error: tuple):
@@ -272,11 +272,11 @@ def before_request():
             if admin_level > 0:
                 allow_access = True
 
-        if request.endpoint in ["channel.locked", "channel.login_handler"]:
+        if request.endpoint in ["cchan.locked", "cchan.login_handler"]:
             allow_access = True
 
         if (not allow_access):
-            return redirect(url_for("channel.locked"))
+            return redirect(url_for("cchan.locked"))
         
     ip = request.headers.get("CF-Connecting-IP")
 
@@ -315,7 +315,7 @@ def locked():
     if LOCKED:
         return bp.render("locked.html", session_id=session.get("user_id"))
     else:
-        return redirect(url_for("channel.home"))
+        return redirect(url_for("cchan.home"))
 
 
 @bp.route("/rules")
@@ -417,7 +417,7 @@ def login():
     e = ra()
 
     if not e:
-        return redirect(url_for("channel.dashboard"))
+        return redirect(url_for("cchan.dashboard"))
 
     session.clear()
     return bp.render("login.html")
@@ -541,9 +541,9 @@ def login_handler():
     session.permanent = True
 
     if "lock" in request.referrer:
-        redirep = "channel.home"
+        redirep = "cchan.home"
     else:
-        redirep = "channel.dashboard"
+        redirep = "cchan.dashboard"
 
     flash(f"You have logged in as {username}.", "pos")
     return redirect(url_for(redirep))
@@ -552,7 +552,7 @@ def login_handler():
 @bp.route("/sys/logout", methods=["POST", "GET"])
 def logout_handler():
     session.clear()
-    return redirect(url_for("channel.login"))
+    return redirect(url_for("cchan.login"))
 
 
 @bp.route("/sys/apply", methods=["POST"])
@@ -825,8 +825,8 @@ def post_handler():
         new_id = g.cur.execute("SELECT last_insert_rowid();").fetchone()
         if new_id: 
             new_id = new_id[0]
-            return redirect(url_for("channel.thread", board_name=board, thread_id=new_id))
+            return redirect(url_for("cchan.thread", board_name=board, thread_id=new_id))
         
-        return redirect(url_for("channel.board", board_name=board))
+        return redirect(url_for("cchan.board", board_name=board))
     
-    return redirect(url_for("channel.thread", board_name=board, thread_id=parent))
+    return redirect(url_for("cchan.thread", board_name=board, thread_id=parent))

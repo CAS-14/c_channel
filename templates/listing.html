@@ -1,14 +1,14 @@
-{% extends "channel/base.html" %}
+{% extends "base.html" %}
 
 {% block title %}admin listing{% endblock %}
 
 {% block content %}
-    <a href="{{ url_for('channel.dashboard') }}">back to dashboard</a>
+    <a href="{{ url_for('cchan.dashboard') }}">back to dashboard</a>
     {% if posts[0].deletion_reason %}
         <span>viewing deleted posts</span>
-        <a href="{{ url_for('channel.listing') }}">back to regular</a>
+        <a href="{{ url_for('cchan.listing') }}">back to regular</a>
     {% else %}
-        <a href="{{ url_for('channel.listing_deleted') }}">view deleted</a>
+        <a href="{{ url_for('cchan.listing_deleted') }}">view deleted</a>
     {% endif %}
     {% for post in posts %}
         <div class="listing-item">
@@ -19,7 +19,7 @@
                     <span>top level thread</span>
                 {% else %}
                     {% if post.parent_id %}
-                        <span>reply to <a href="{{ url_for('channel.thread', board_name=post.board, thread_id=post.parent_id) }}">No.{{ post.parent_id }}</a></span>
+                        <span>reply to <a href="{{ url_for('cchan.thread', board_name=post.board, thread_id=post.parent_id) }}">No.{{ post.parent_id }}</a></span>
                     {% else %}
                         <span>something went wrong, no parent id?</span>
                     {% endif %}
@@ -27,7 +27,7 @@
             </div>
             {% if post.filename %}
                 <div class="listing-info-row">
-                    <a href="{{ url_for('channel.get_file', filename=post.filename) }}" target="_blank">FILE</a>
+                    <a href="{{ url_for('cchan.get_file', filename=post.filename) }}" target="_blank">FILE</a>
                     <span>originally {{ post.original_filename }}</span>
                     <span>{{ post.file_size }}</span>
                     <span>{{ post.file_res }}</span>

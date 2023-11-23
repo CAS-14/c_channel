@@ -1,4 +1,4 @@
-{% extends "channel/base.html" %}
+{% extends "base.html" %}
 
 {% block title %}welcome{% endblock %}
 
@@ -12,11 +12,11 @@
             <tr>
                 <td><span>&sol;{{ board.name }}&sol;</span></td>
                 <td><span style="color:black;">:</span></td>
-                <td><a href="{{ url_for('channel.board', board_name=board.name) }}">{{ board.title.lower() }}</a></td>
+                <td><a href="{{ url_for('cchan.board', board_name=board.name) }}">{{ board.title.lower() }}</a></td>
             </tr>
         {% endfor %}
     </table>
     <br>
-    <span>By creating a post on C-Channel, you agree to our <a href="{{ url_for('channel.rules') }}" target="_blank">rules</a>.</span>
-    <a class="end" href="{{ url_for('channel.login') }}">vip/admin access</a>
+    <span>By creating a post on C-Channel, you agree to our <a href="{{ url_for('cchan.rules') }}" target="_blank">rules</a>.</span>
+    <a class="end" href="{{ url_for('cchan.login') }}">vip/admin access</a>
 {% endblock %}

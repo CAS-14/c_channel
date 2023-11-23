@@ -1,5 +1,5 @@
 {% macro creator(board_name, parent_id) %}
-    <form action="{{ url_for('channel.post_handler') }}" method="post" enctype="multipart/form-data">
+    <form action="{{ url_for('cchan.post_handler') }}" method="post" enctype="multipart/form-data">
         <input type="hidden" name="board" value="{{ board_name }}">
         {% if parent_id %}
             <input type="hidden" name="parent" value="{{ parent_id }}">
@@ -29,7 +29,7 @@
 {% macro mpost(post) %}
     <div class="post">
         {% if post.filename %}
-            <img src="{{ url_for('channel.get_file', filename=post.filename) }}">
+            <img src="{{ url_for('cchan.get_file', filename=post.filename) }}">
         {% endif %}
         <div class="post-box">
             <div class="post-details">
@@ -41,13 +41,13 @@
                     <span class="post-subject">{{ post.subject }}</span>
                 {% endif %}
                 {% if post.is_thread %}
-                    <span class="post-replies">{{ post.replies|length }} replies [<a href="{{ url_for('channel.thread', board_name=post.board, thread_id=post.id) }}">view</a>]</span>
+                    <span class="post-replies">{{ post.replies|length }} replies [<a href="{{ url_for('cchan.thread', board_name=post.board, thread_id=post.id) }}">view</a>]</span>
                 {% endif %}
             </div>
             {% if post.filename %}
                 <span class="image-details">
                     &#128462;
-                    <a href="{{ url_for('channel.get_file', filename=post.filename) }}" target="_blank">{{ post.original_filename }}</a>
+                    <a href="{{ url_for('cchan.get_file', filename=post.filename) }}" target="_blank">{{ post.original_filename }}</a>
                     {{ "|" }}
                     {{ post.file_size }}
                     {{ post.file_res }}
