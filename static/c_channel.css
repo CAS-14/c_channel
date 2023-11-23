@@ -1,5 +1,5 @@
 :root {
-    --tile: url("/c_channel/img/tile_small.png");
+    --tile: url("img/tile_small.png");
     --color1: #b9f4ff;
     --color2: #1144ff;
     --color3: #000f99;
@@ -9,14 +9,14 @@
 
 @font-face {
     font-family: ShinGo;
-    src: url("/c_channel/font/ShinGoPro-Regular.otf");
+    src: url("font/ShinGoPro-Regular.otf");
     font-style: normal;
     font-weight: normal;
 }
 
 @font-face {
     font-family: ShinGo;
-    src: url("/c_channel/font/ShinGoPro-Bold.otf");
+    src: url("font/ShinGoPro-Bold.otf");
     font-style: normal;
     font-weight: bold;
 }

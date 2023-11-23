@@ -17,7 +17,7 @@ ALLOWED_EXTENSIONS = {"png", "jpg", "jpeg", "gif"}
 ALLOWED_CHARS = string.printable
 c = "Under construction"
 
-bp = tools.MyBlueprint("channel", host="cch.act25.com", db="channel")
+bp = tools.MyBlueprint("cchan", host="cch.act25.com", db="channel")
 
 
 """
